@@ -1,0 +1,148 @@
+[
+  {
+    "graph": "T(3,1,1)",
+    "diameter": 3,
+    "target": "u_R",
+    "target_vertex": 4,
+    "config": [
+      0,
+      0,
+      1,
+      7,
+      0
+    ],
+    "total_pebbles": 8,
+    "expected_total": 8,
+    "reachable": false,
+    "confirms_lower_bound": true
+  },
+  {
+    "graph": "T(3,1,1)",
+    "diameter": 3,
+    "target": "u_L",
+    "target_vertex": 3,
+    "config": [
+      0,
+      0,
+      1,
+      0,
+      7
+    ],
+    "total_pebbles": 8,
+    "expected_total": 8,
+    "reachable": false,
+    "confirms_lower_bound": true
+  },
+  {
+    "graph": "T(3,1,2)",
+    "diameter": 4,
+    "target": "u_R",
+    "target_vertex": 5,
+    "config": [
+      0,
+      0,
+      1,
+      15,
+      0,
+      0
+    ],
+    "total_pebbles": 16,
+    "expected_total": 16,
+    "reachable": false,
+    "confirms_lower_bound": true
+  },
+  {
+    "graph": "T(3,1,2)",
+    "diameter": 4,
+    "target": "u_L",
+    "target_vertex": 3,
+    "config": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      15
+    ],
+    "total_pebbles": 16,
+    "expected_total": 16,
+    "reachable": false,
+    "confirms_lower_bound": true
+  },
+  {
+    "graph": "T(3,2,2)",
+    "diameter": 5,
+    "target": "u_R",
+    "target_vertex": 6,
+    "config": [
+      0,
+      0,
+      1,
+      0,
+      31,
+      0,
+      0
+    ],
+    "total_pebbles": 32,
+    "expected_total": 32,
+    "reachable": false,
+    "confirms_lower_bound": true
+  },
+  {
+    "graph": "T(3,2,2)",
+    "diameter": 5,
+    "target": "u_L",
+    "target_vertex": 4,
+    "config": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      31
+    ],
+    "total_pebbles": 32,
+    "expected_total": 32,
+    "reachable": false,
+    "confirms_lower_bound": true
+  },
+  {
+    "graph": "T(3,1,3)",
+    "diameter": 5,
+    "target": "u_R",
+    "target_vertex": 6,
+    "config": [
+      0,
+      0,
+      1,
+      31,
+      0,
+      0,
+      0
+    ],
+    "total_pebbles": 32,
+    "expected_total": 32,
+    "reachable": false,
+    "confirms_lower_bound": true
+  },
+  {
+    "graph": "T(3,1,3)",
+    "diameter": 5,
+    "target": "u_L",
+    "target_vertex": 3,
+    "config": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      31
+    ],
+    "total_pebbles": 32,
+    "expected_total": 32,
+    "reachable": false,
+    "confirms_lower_bound": true
+  }
+]

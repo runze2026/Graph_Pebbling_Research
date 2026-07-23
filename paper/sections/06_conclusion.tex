@@ -1,0 +1,37 @@
+% Conclusion
+
+\section{Conclusion}\label{sec:conclusion}
+
+For $T(3,s_1,s_2)$ the pebbling number is $2^d+1$, not the path value $2^d$.
+The extra pebble is tied to the apex branch at~$c$: configuration~$D^*$ uses
+$2^d-1$ pebbles on the farther leaf and one on~$c$ yet still fails, while the
+upper-bound weight function assigns unit weight to~$c$ and fills the bound
+$w(1_G)=2^d$.
+
+At $S=2^d$, is $D^*$ the only failing configuration up to automorphism?
+Table~\ref{tab:critical} is consistent with this on every instance we checked; a
+general classification would show how rigid the lower-bound argument is.
+A separate question is whether the same formula holds for larger cycle bases
+$T(k,s_1,s_2)$ with $k\ge4$, or whether tail lengths eventually decouple from
+$d$; even $k=4$ would test whether the triangle-plus-apex picture explains the
+$+1$ correction in full.
+
+\subsection*{Acknowledgments}
+I used AI-assisted tools for English polishing only.
+The mathematics was verified independently, and I take full responsibility for
+this paper.
+
+\subsection*{Data availability}\label{sec:data-availability}
+Code and JSON logs are at
+\url{https://github.com/runze2026/Graph_Pebbling_Research}.
+Table~\ref{tab:results} matches \path{data/computational_results.json}.
+Main checks:
+\begin{itemize}
+  \item \path{python pebbling_solver.py} --- Table~\ref{tab:results}.
+  \item \path{python verify_weight_function.py --quick} --- $d\le 4$;
+        output \path{data/weight_function_day8.json}.
+  \item \path{python verify_b_capacity.py} --- \path{data/b_capacity_verification.json}.
+  \item \path{python verify_leaf_lemma.py} --- Table~\ref{tab:leaf-verify};
+        output \path{data/leaf_lemma_verification.json}.
+\end{itemize}
+Appendix~\ref{sec:appendix-computational} summarizes the computer runs.

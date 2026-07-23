@@ -1,0 +1,50 @@
+[
+  {
+    "graph": "T(3,1,1)",
+    "diameter": 3,
+    "s1": 1,
+    "s2": 1,
+    "threshold_on_b": 2,
+    "formula_max_b": 1,
+    "max_pebbles_at_b": 1,
+    "max_pebbles_at_a": 3,
+    "reachable_states": 22,
+    "below_threshold": true
+  },
+  {
+    "graph": "T(3,1,2)",
+    "diameter": 4,
+    "s1": 1,
+    "s2": 2,
+    "threshold_on_b": 4,
+    "formula_max_b": 3,
+    "max_pebbles_at_b": 3,
+    "max_pebbles_at_a": 7,
+    "reachable_states": 266,
+    "below_threshold": true
+  },
+  {
+    "graph": "T(3,2,2)",
+    "diameter": 5,
+    "s1": 2,
+    "s2": 2,
+    "threshold_on_b": 4,
+    "formula_max_b": 3,
+    "max_pebbles_at_b": 3,
+    "max_pebbles_at_a": 7,
+    "reachable_states": 1953,
+    "below_threshold": true
+  },
+  {
+    "graph": "T(3,1,3)",
+    "diameter": 5,
+    "s1": 1,
+    "s2": 3,
+    "threshold_on_b": 8,
+    "formula_max_b": 7,
+    "max_pebbles_at_b": 7,
+    "max_pebbles_at_a": 15,
+    "reachable_states": 4116,
+    "below_threshold": true
+  }
+]

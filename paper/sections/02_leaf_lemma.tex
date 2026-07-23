@@ -1,0 +1,222 @@
+% Leaf Target Sufficiency Lemma
+
+\subsection{Leaf target sufficiency}\label{sec:leaf-lemma}
+
+The solver in Section~\ref{sec:computational} tests only the leaf targets $u_L$ and~$u_R$.
+
+\begin{lemma}[Leaf target sufficiency]\label{lem:leaf}
+Let $G=T(3,s_1,s_2)$ with leaves $u_L$ and $u_R$. Then
+\[
+\pi(G)=\max\bigl\{\pi(G,u_L),\,\pi(G,u_R)\bigr\}.
+\]
+Equivalently, if every configuration with $S$ pebbles can pebble both leaves,
+then every such configuration can pebble every vertex of~$G$.
+\end{lemma}
+
+\begin{lemma}[Tail propagation]\label{lem:tail-prop}
+Let $P=(w_0,w_1,\ldots,w_k)$ be a path in $G$ with $w_k$ a leaf of~$G$.
+For every $i\in\{0,1,\ldots,k\}$,
+\[
+\pi(G,w_i)\le \pi(G,w_k).
+\]
+In particular, with $P_L=(a,\ldots,u_L)$ and $P_R=(b,\ldots,u_R)$ one has
+$\pi(G,v)\le \pi(G,u_L)$ for every vertex $v$ on the left tail and
+$\pi(G,v)\le \pi(G,u_R)$ for every vertex $v$ on the right tail.
+\end{lemma}
+
+\begin{lemma}[First double on a path]\label{lem:first-double}
+Let $P=(w_0,w_1,\ldots,w_k)$ be a path and let $D$ be a configuration that
+pebbles~$w_i$ for some $i\in\{0,1,\ldots,k\}$.
+If some reachable state satisfies $p(w_i)\ge 2$, then $D$ pebbles~$w_i$.
+Otherwise $p(w_i)\le 1$ in every reachable state, and the first move that
+places a pebble on~$w_i$ is either $w_{i-1}\to w_i$ (when $i\ge 1$) or
+$w_{i+1}\to w_i$ (when $i\le k-1$); in either case the prefix ending
+immediately before that move already places at least two pebbles on the source
+vertex, so $D$ pebbles that source as well.
+\end{lemma}
+
+\begin{proof}
+If a reachable state has $p(w_i)\ge 2$, then either $w_i\to w_{i-1}$ or
+$w_i\to w_{i+1}$ is legal toward pebbling a neighbor, and the claim is
+immediate from the definition of ``$D$ pebbles~$w_i$''.
+
+Assume $p(w_i)\le 1$ in every reachable state.
+Let $m$ be the first move in a pebbling sequence for~$w_i$ that places a pebble
+on~$w_i$.
+Because $p(w_i)=0$ before~$m$, the move $m$ is either $w_{i-1}\to w_i$ or
+$w_{i+1}\to w_i$.
+Each requires at least two pebbles on its source immediately beforehand, and
+the prefix ending before~$m$ pebbles that source.
+\end{proof}
+
+\begin{lemma}[Left junction supply for the apex]\label{lem:left-junction}
+Let $G=T(3,s_1,s_2)$ and let $w_1$ denote the neighbor of~$a$ on the left
+tail ($w_1=u_L$ when $s_1=1$).
+Fix a configuration~$p$ that can pebble~$a$.
+If every reachable configuration has $p(c)=0$ and $p(b)\le 1$, then some
+reachable configuration~$p'$ satisfies $p'(a)\ge 2$.
+\end{lemma}
+
+\begin{proof}
+If some reachable state already has $p(a)\ge 2$, we are done.
+Assume $p(a)\le 1$ in every reachable state.
+Because $p$ pebbles~$a$, some sequence ends with a pebble on~$a$.
+
+The first move~$m$ that places a pebble on~$a$ cannot be $c\to a$ or $b\to a$,
+because $p(c)=0$ and $p(b)\le 1$ in every reachable state.
+Hence $m=w_1\to a$, and the prefix ending immediately before~$m$ already has
+$p(w_1)\ge 2$ by Lemma~\ref{lem:first-double}.
+
+If $p(a)=0$ before~$m$, then after~$m$ we have $p(a)=1$.
+Because $p(a)\le 1$ always, a second move must place another pebble on~$a$;
+it is again $w_1\to a$, and immediately beforehand $p(w_1)\ge 2$.
+Performing this second move yields a reachable state with $p(a)\ge 2$.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:tail-prop}]
+Fix $S=\pi(G,w_k)$ and let $D$ be any configuration with $|D|=S$.
+We prove by downward induction on $i$ that $D$ pebbles~$w_i$.
+
+The base $i=k$ is immediate.
+For $i<k$, assume $D$ pebbles~$w_{i+1}$.
+If $D$ already pebbles~$w_i$, we are done.
+Otherwise $p(w_i)=0$.
+
+\smallskip\noindent
+\textbf{Cases 1--2.}
+If $p(w_{i+1})=0$, the first move placing a pebble on~$w_{i+1}$ is $w_i\to w_{i+1}$,
+and its prefix pebbles~$w_i$.
+If $p(w_{i+1})\ge 2$, then $w_{i+1}\to w_i$ pebbles~$w_i$.
+
+\smallskip\noindent
+\textbf{Case 3: $p(w_{i+1})=1$ and $p(w_i)=0$.}
+Suppose $D$ does not pebble~$w_i$.
+
+If some sequence raises $p(w_{i+1})$ to~$2$, let $m$ be the first such move.
+Then $m$ is $w_i\to w_{i+1}$ or $w_{i+2}\to w_{i+1}$ (when $i+2\le k$).
+In the first case the prefix before~$m$ already places two pebbles on~$w_i$.
+In the second case, apply the same first-double chase on the suffix
+$(w_{i+1},\ldots,w_k)$: when $i=k-1$ the only possible first accumulation is
+$w_{k-1}\to w_k$, whose prefix pebbles $w_{k-1}=w_i$; for $i<k-1$, iterate until
+a prefix pebbles~$w_i$.
+Both contradict the assumption that $D$ does not pebble~$w_i$.
+
+Hence $p(w_{i+1})\le 1$ in every reachable state, so neither
+$w_{i+1}\to w_i$ nor $w_{i+1}\to w_{i+2}$ is ever legal.
+
+If $i=k-1$, then $w_{i+1}=w_k$ is the leaf.
+The lone pebble on~$w_k$ cannot be inert, for otherwise $|D|-1$ pebbles would
+suffice to pebble~$w_k$, contradicting $S=\pi(G,w_k)$.
+Some sequence therefore executes $w_{k-1}\to w_k$, and the prefix before that move
+places at least two pebbles on~$w_{k-1}=w_i$ (Lemma~\ref{lem:first-double}).
+
+If $i<k-1$, no sequence can use $w_{k-1}\to w_k$, for that would force
+$p(w_{i+1})\ge 2^{\,k-i-1}$ by Lemma~\ref{lem:path-lb} on the subpath
+$(w_{i+1},\ldots,w_k)$, contradicting the paragraph above.
+Because $D$ pebbles~$w_{k-1}$, the first move placing a pebble on~$w_{k-1}$ is either
+$w_{k-2}\to w_{k-1}$ or $w_k\to w_{k-1}$; in either case the prefix before that move
+pebbles a neighbor closer to~$w_i$, and repeating the first-double chase along
+$(w_i,\ldots,w_{k-1})$ eventually yields a prefix that pebbles~$w_i$ or a move
+$w_i\to w_{i+1}$ whose prefix pebbles~$w_i$.
+
+In every subcase, $D$ pebbles~$w_i$.
+Thus $\pi(G,w_i)\le S=\pi(G,w_k)$ for every $i\in\{0,\ldots,k\}$.
+\end{proof}
+
+\begin{lemma}[Triangle access to the apex]\label{lem:triangle-apex}
+Let $G=T(3,s_1,s_2)$ and let $D$ be a configuration with $|D|=\pi(G,u_R)$
+that can pebble~$u_R$.
+If $p(c)=0$ in every reachable state and $p(b)\le 1$ in every reachable state,
+then $D$ can pebble~$c$.
+\end{lemma}
+
+\begin{proof}
+If some reachable state has $p(b)\ge 2$, then $b\to c$ places a pebble on~$c$.
+Assume $p(b)\le 1$ in every reachable state, so $b\to c$ is never legal and any
+pebbling of~$c$ must use $a\to c$, which requires a reachable state with
+$p(a)\ge 2$.
+Because $\pi(G,a)\le \pi(G,u_R)=|D|$, configuration~$D$ can pebble~$a$.
+Since $p(c)=0$ and $p(b)\le 1$ in every reachable state,
+Lemma~\ref{lem:left-junction} gives a reachable state~$\sigma$ with
+$\sigma(a)\ge 2$, and then $a\to c$ pebbles~$c$.
+
+In every subcase, $D$ can pebble~$c$.
+\end{proof}
+
+\begin{lemma}[Apex bound]\label{lem:apex-bound}
+The triangle apex satisfies
+\[
+\pi(G,c)\le \max\bigl\{\pi(G,u_L),\,\pi(G,u_R)\bigr\}.
+\]
+\end{lemma}
+
+\begin{proof}
+By symmetry, assume $\pi(G,u_R)\ge \pi(G,u_L)$.
+Let $D$ be any configuration with $|D|=\pi(G,u_R)$ pebbles.
+Then $D$ can pebble~$u_R$.
+
+If $D$ already places a pebble on~$c$, then $\pi(G,c)\le \pi(G,u_R)$.
+
+Otherwise $p(c)=0$.
+We show that $D$ can pebble~$c$.
+
+\smallskip\noindent
+\textbf{Case 1: $p(u_R)=0$ in~$D$.}
+Choose a pebbling sequence from~$D$ that places a pebble on~$u_R$.
+Since $p(u_R)=0$, Lemma~\ref{lem:path-lb} applied to the right tail yields a reachable
+configuration~$\sigma$ with $\sigma(b)\ge 2^{s_2}$.
+If $\sigma(c)\ge 1$, then $D$ pebbles~$c$.
+Otherwise the move $b\to c$ is legal in~$\sigma$ and places a pebble on~$c$.
+
+\smallskip\noindent
+\textbf{Case 2: $p(u_R)\ge 1$ in~$D$.}
+Then $D$ already pebbles~$u_R$ by the empty sequence.
+If some reachable state~$\sigma$ satisfies $\sigma(b)\ge 2$ or $\sigma(a)\ge 2$,
+then a single move $b\to c$ or $a\to c$ pebbles~$c$.
+Otherwise $p(a)\le 1$, $p(b)\le 1$, and $p(c)=0$ in every reachable state.
+These are exactly the hypotheses of Lemma~\ref{lem:triangle-apex}, so $D$ can
+pebble~$c$ by that lemma.
+
+\smallskip\noindent
+In both cases, every configuration with $\pi(G,u_R)$ pebbles can pebble~$c$, so
+$\pi(G,c)\le \pi(G,u_R)=\max\{\pi(G,u_L),\pi(G,u_R)\}$.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:leaf}]
+By Lemma~\ref{lem:tail-prop}, every vertex on the left tail, including~$a$, satisfies
+$\pi(G,v)\le \pi(G,u_L)$; every vertex on the right tail, including~$b$, satisfies
+$\pi(G,v)\le \pi(G,u_R)$.
+By Lemma~\ref{lem:apex-bound},
+$\pi(G,c)\le \max\{\pi(G,u_L),\pi(G,u_R)\}$.
+Therefore every vertex $t$ satisfies
+\[
+\pi(G,t)\le \max\bigl\{\pi(G,u_L),\,\pi(G,u_R)\bigr\}.
+\]
+The reverse inequality is immediate because $u_L$ and $u_R$ are vertices of~$G$.
+\end{proof}
+
+\begin{corollary}[Solver pruning]\label{cor:pruning}
+The pebbling number of $T(3,s_1,s_2)$ equals the minimum $S$ such that every
+configuration with $S$ pebbles can pebble both leaves.
+\end{corollary}
+
+\begin{table}[ht]
+\centering
+\caption{Per-target pebbling numbers from exhaustive search
+(\texttt{verify\_leaf\_lemma.py}).}
+\label{tab:leaf-verify}
+\begin{tabular}{lrrrrrrr}
+\hline
+Graph & $d$ & $\pi(G,c)$ & $\pi(G,a)$ & $\pi(G,b)$ & $\pi(G,u_L)$ & $\pi(G,u_R)$ & $\pi(G)$ \\
+\hline
+$T(3,1,1)$ & 3 & 7  & 6  & 6  & 9  & 9  & 9  \\
+$T(3,1,2)$ & 4 & 11 & 10 & 8  & 17 & 17 & 17 \\
+$T(3,2,2)$ & 5 & 15 & 12 & 12 & 33 & 33 & 33 \\
+$T(3,1,3)$ & 5 & 19 & 18 & 12 & 33 & 33 & 33 \\
+\hline
+\end{tabular}
+\end{table}
+
+Each row agrees with Lemmas~\ref{lem:leaf} and~\ref{lem:apex-bound}.
+On $T(3,1,1)$, $\pi(G,c)=7$ lies strictly below both leaf values.
+Output: \path{data/leaf_lemma_verification.json}.

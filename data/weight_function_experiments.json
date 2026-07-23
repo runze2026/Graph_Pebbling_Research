@@ -1,0 +1,80 @@
+[
+  {
+    "name": "path_spine_plus_apex",
+    "graph": "T(3,1,1)",
+    "target": "u_R",
+    "target_vertex": 4,
+    "w_unit": 8,
+    "predicted_upper_bound": 9,
+    "expected_pi": 9,
+    "valid": true,
+    "configs_checked": 17016,
+    "violations_sample": [],
+    "weights": {"0": 2, "1": 4, "2": 1, "3": 1, "4": 0}
+  },
+  {
+    "name": "path_spine_plus_apex",
+    "graph": "T(3,1,1)",
+    "target": "u_L",
+    "target_vertex": 3,
+    "w_unit": 8,
+    "predicted_upper_bound": 9,
+    "expected_pi": 9,
+    "valid": true,
+    "configs_checked": 17016,
+    "violations_sample": [],
+    "weights": {"0": 2, "1": 4, "2": 1, "3": 0, "4": 1}
+  },
+  {
+    "name": "path_spine_plus_apex",
+    "graph": "T(3,1,2)",
+    "target": "u_R",
+    "target_vertex": 5,
+    "w_unit": 16,
+    "predicted_upper_bound": 17,
+    "expected_pi": 17,
+    "valid": true,
+    "configs_checked": 3838379,
+    "violations_sample": [],
+    "weights": {"0": 2, "1": 4, "2": 1, "3": 1, "4": 8, "5": 0}
+  },
+  {
+    "name": "path_spine_plus_apex",
+    "graph": "T(3,1,2)",
+    "target": "u_L",
+    "target_vertex": 3,
+    "w_unit": 16,
+    "predicted_upper_bound": 17,
+    "expected_pi": 17,
+    "valid": true,
+    "configs_checked": 3838379,
+    "violations_sample": [],
+    "weights": {"0": 1, "1": 8, "2": 1, "3": 0, "4": 4, "5": 2}
+  },
+  {
+    "name": "path_spine_plus_apex",
+    "graph": "T(3,2,1)",
+    "target": "u_R",
+    "target_vertex": 5,
+    "w_unit": 16,
+    "predicted_upper_bound": 17,
+    "expected_pi": 17,
+    "valid": true,
+    "configs_checked": 3838379,
+    "violations_sample": [],
+    "weights": {"0": 4, "1": 2, "2": 1, "3": 1, "4": 8, "5": 0}
+  },
+  {
+    "name": "path_spine_plus_apex",
+    "graph": "T(3,2,1)",
+    "target": "u_L",
+    "target_vertex": 4,
+    "w_unit": 16,
+    "predicted_upper_bound": 17,
+    "expected_pi": 17,
+    "valid": true,
+    "configs_checked": 3838379,
+    "violations_sample": [],
+    "weights": {"0": 0, "1": 4, "2": 1, "3": 2, "4": 1, "5": 8}
+  }
+]

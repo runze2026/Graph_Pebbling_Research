@@ -1,0 +1,119 @@
+% Supply bound on junction vertex b
+
+\subsubsection{Supply bound on the junction vertex \texorpdfstring{$b$}{b}}\label{sec:b-capacity}
+
+Fix the right tail $P_R=(b,z_1,\ldots,u_R)$, a path of length~$s_2$ from~$b$ to~$u_R$.
+If $p(u_R)=0$ and some sequence from~$p$ pebbles~$u_R$, then
+Lemma~\ref{lem:path-lb} applied to~$P_R$ yields a reachable configuration with
+$p(b)\ge 2^{s_2}$.
+
+\begin{lemma}[Left-tail potential]\label{lem:left-potential}
+Label $P_L=(v_0,v_1,\ldots,v_{s_1})$ with $v_0=u_L$ and $v_{s_1}=a$.
+For a configuration~$p$, define
+\[
+\Phi(p)=\sum_{i=0}^{s_1} p(v_i)\,2^i.
+\]
+Then $\Phi(p)$ never increases under moves on~$P_L\setminus\{a\}$ or on the
+right side of~$G$, and each move $a\to c$, $a\to b$, or $a\to v_{s_1-1}$ (back into
+the tail) satisfies $\Delta\Phi<0$; in particular $\Delta\Phi=-2^{s_1+1}$ for
+$a\to c$ and $a\to b$.
+\end{lemma}
+
+\begin{proof}
+If a move occurs on an edge of~$P_L$ not incident with~$a$, the calculation in
+Lemma~\ref{lem:path-lb} (with weights $2^i$ toward~$a$) shows that $\Phi$ does
+not increase.
+The move $v_{s_1-1}\to a$ (toward~$a$ along the tail) leaves $\Phi$ unchanged,
+matching the general pattern of Lemma~\ref{lem:path-lb}.
+Each move $a\to c$ or $a\to b$ removes two pebbles from~$a$ and therefore
+decreases $\Phi$ by $2\cdot 2^{s_1}=2^{s_1+1}$.
+The move $a\to v_{s_1-1}$ (back into the tail, when $s_1\ge 2$) decreases $\Phi$ by
+$2^{s_1+1}-2^{s_1-1}>0$.
+Together with the standard pattern on $P_L\setminus\{a\}$ (Lemma~\ref{lem:path-lb}) and
+the move $v_{s_1-1}\to a$, the cases above cover every pebbling move incident with~$a$.
+Moves on the right side of~$G$ do not change~$\Phi$.
+\end{proof}
+
+\begin{lemma}[$b$-potential bound]\label{lem:b-potential}
+Let $K=2^{s_1+1}$ and $N=2^d-1$.
+Define $\Xi(p)=\Phi(p)+Kp(b)$.
+Every configuration reachable from~$D^*$ satisfies $\Xi(p)\le N$.
+\end{lemma}
+
+\begin{proof}
+Since $\Xi(D^*)=N$, it suffices to show that no single pebbling move raises $\Xi$
+above~$N$.
+Let $p^-$ be the configuration immediately before a move~$m$ that yields~$p$,
+with $\Xi(p^-)\le N$ by induction on sequence length.
+
+A move $a\to b$ lowers $\Phi$ by~$K$ and raises $p(b)$ by~$1$, so $\Xi$ is unchanged.
+Each move $a\to c$ or $b\to z_1$ lowers $\Xi$ by at least~$K$ (in fact by~$2K$
+for each $b\to z_1$), and each move $b\to c$ lowers $\Xi$ by~$2K$.
+A move $b\to a$ lowers $\Phi$ by $2^{s_1}=K/2$ and $p(b)$ by~$2$, so
+$\Delta\Xi=-\tfrac{3}{2}K<0$.
+All other moves except those listed below leave $\Xi$ unchanged or decrease it.
+
+\smallskip\noindent
+\textbf{Move $c\to b$.}
+This requires $p^-(c)\ge 2$.
+Since $D^*(c)=1$, the value $p(c)=2$ can arise only after a \emph{supply move}
+$a\to c$ or $b\to c$ that raised $p(c)$ from~$0$ to~$1$ or from~$1$ to~$2$.
+Each supply move lowers $\Xi$ by at least~$K$ ($a\to c$) or~$2K$ ($b\to c$).
+Apply the inductive hypothesis to the state immediately before the \emph{last}
+supply move that enabled $p^-(c)\ge 2$: there $\Xi\le N-K$.
+The move $c\to b$ lowers $\Phi$ by~$K$ and raises $p(b)$ by~$1$, so
+$\Xi(p)=\Xi(p^-)-K+K=\Xi(p^-)\le N-K<N$.
+If $p(c)\ge 2$ because of several supply cycles, the same bound applies to the
+prefix ending at the supply move that immediately preceded~$m$.
+
+\smallskip\noindent
+\textbf{Move $c\to a$.}
+This raises $\Xi$ by $K/2=2^{s_1}$.
+As above, $p(c)\ge 2$ requires a preceding supply move $a\to c$ or $b\to c$
+with $\Xi\le N-K$ at the state just before that supply move, so
+$\Xi(p)\le N-K+K/2<N$.
+
+\smallskip\noindent
+\textbf{Move $z_1\to b$.}
+This requires $p^-(z_1)\ge 2$.
+Each pebble on~$z_1$ arrived from~$b$ via a move $b\to z_1$, and each such move
+lowers $\Xi$ by~$2K$.
+To accumulate $p(z_1)\ge 2$ requires at least two moves $b\to z_1$, lowering
+$\Xi$ by at least~$4K$ before $z_1\to b$ can occur; the subsequent $z_1\to b$
+raises $\Xi$ by only~$K$, so $\Xi(p)\le N$ is preserved.
+
+\smallskip\noindent
+In every case $\Xi(p)\le N$, completing the induction.
+\end{proof}
+
+\begin{lemma}[$b$-capacity bound]\label{lem:b-capacity}
+Starting from the critical configuration~$D^*$, every reachable
+configuration~$p$ satisfies
+\[
+p(b)\le 2^{s_2}-1.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $K=2^{s_1+1}$ and $N=2^d-1$.
+By Lemma~\ref{lem:b-potential}, $\Phi(p)+Kp(b)\le N$.
+Since $\Phi(p)\ge 0$, we obtain
+\[
+p(b)\le\frac{N}{K}
+=\frac{2^d-1}{2^{s_1+1}}
+=2^{s_2}-\frac{1}{2^{s_1+1}}.
+\]
+Because $0<1/2^{s_1+1}<1$ and $p(b)$ is an integer, we have
+$p(b)\le\lfloor N/K\rfloor=2^{s_2}-1$.
+\end{proof}
+
+\begin{corollary}[Bypass through $c$ is insufficient]\label{cor:bypass}
+No sequence of pebbling moves starting from~$D^*$ can pebble~$u_R$.
+\end{corollary}
+
+\begin{proof}
+By Lemma~\ref{lem:path-lb} on the right tail~$P_R$, pebbling $u_R$ from~$D^*$
+would require some reachable state with $p(b)\ge 2^{s_2}$.
+Lemma~\ref{lem:b-capacity} shows $p(b)\le 2^{s_2}-1$ for every reachable state.
+This is a contradiction.
+\end{proof}

@@ -1,0 +1,42 @@
+% Introduction
+
+\section{Introduction}\label{sec:intro}
+
+In \emph{graph pebbling}, a move along edge $\{u,v\}$ removes two pebbles from~$u$ and
+places one on~$v$.
+The \emph{pebbling number} $\pi(G)$ is the smallest~$S$ for which every $S$-pebble
+configuration can reach every target~\cite{Chung1989,HurlbertKenter2021}.
+One always has $\pi(G)\ge |V(G)|$ and $\pi(G)\ge 2^{\operatorname{diam}(G)}$; on a path
+$P_{d+1}$ the value is exactly $2^d$~\cite{Hurlbert1999,AlconHurlbert2022}.
+Upper bounds often come from \emph{weight functions}~\cite{Hurlbert2017,YYZ2024}: if
+$w(1_G)=2^d$, the minimum off-target weight is~$1$, and $w$ is valid, then
+$\pi(G)\le 2^d+1$.
+
+The graph $T(3,s_1,s_2)$ is a triangle on $\{a,b,c\}$ with paths of lengths $s_1$ and
+$s_2$ from~$a$ and~$b$ to leaves $u_L$ and~$u_R$; the apex~$c$ carries no tail
+(Definition~\ref{sec:tadpole-def}, Figure~\ref{fig:tadpole-schematic}).
+Its diameter is $d=s_1+s_2+1$.
+Closed formulas for classical tadpoles under standard moves are rare; much of the
+literature under that name treats \emph{monophonic} pebbling~\cite{Iammal2026}, where
+moves are confined to longest chordless paths.
+
+Our main result (Theorem~\ref{thm:exact}) is
+\[
+\pi\bigl(T(3,s_1,s_2)\bigr)=2^d+1
+\quad\text{for all } s_1,s_2\ge1,
+\]
+one pebble above the path bound $2^d$.
+We do not know of an earlier exact formula for a two-parameter family of
+double-tailed graphs with a triangle core under standard moves.
+
+Section~\ref{sec:preliminaries} fixes notation and the critical configuration~$D^*$.
+Section~\ref{sec:lemmas} shows that only the two leaves matter as targets.
+The proof of the closed formula occupies Sections~\ref{sec:aux-bounds}--\ref{sec:upper-bound};
+Section~\ref{sec:computational} and Appendix~\ref{sec:appendix-computational} record
+small-instance searches that were run while the argument was being tested.
+
+\medskip
+\noindent\textbf{Keywords.} graph pebbling; pebbling number; tadpole graph; weight function.
+
+\medskip
+\noindent\textbf{MSC 2020.} 05C57 (Primary); 05C35 (Secondary).

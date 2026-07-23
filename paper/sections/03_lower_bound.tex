@@ -1,0 +1,27 @@
+% Lower bound via critical configuration
+
+\subsubsection{Critical configuration is unsolvable}
+
+\begin{lemma}[Critical configuration obstruction]\label{lem:critical}
+The configuration $D^*$ (Definition~\ref{def:critical}) cannot pebble~$u_R$.
+\end{lemma}
+
+\begin{proof}
+By Corollary~\ref{cor:bypass}.
+\end{proof}
+
+\subsubsection{Main lower-bound theorem}
+
+\begin{theorem}[Lower bound]\label{thm:lower-bound}
+For all $s_1,s_2\ge 1$ with $d=s_1+s_2+1$,
+\[
+\pi(T(3,s_1,s_2))\ge 2^d+1.
+\]
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:critical}, there exists a configuration with $2^d$ pebbles
+that cannot pebble~$u_R$.
+Hence $\pi(G,u_R)>2^d$, so $\pi(G,u_R)\ge 2^d+1$.
+Lemma~\ref{lem:leaf} then gives $\pi(G)\ge 2^d+1$.
+\end{proof}
