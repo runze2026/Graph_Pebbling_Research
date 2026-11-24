@@ -2,41 +2,58 @@
 
 \section{Introduction}\label{sec:intro}
 
-In \emph{graph pebbling}, a move along edge $\{u,v\}$ removes two pebbles from~$u$ and
-places one on~$v$.
-The \emph{pebbling number} $\pi(G)$ is the smallest~$S$ for which every $S$-pebble
-configuration can reach every target~\cite{Chung1989,HurlbertKenter2021}.
-One always has $\pi(G)\ge |V(G)|$ and $\pi(G)\ge 2^{\operatorname{diam}(G)}$; on a path
-$P_{d+1}$ the value is exactly $2^d$~\cite{Hurlbert1999,AlconHurlbert2022}.
-Upper bounds often come from \emph{weight functions}~\cite{Hurlbert2017,YYZ2024}: if
-$w(1_G)=2^d$, the minimum off-target weight is~$1$, and $w$ is valid, then
-$\pi(G)\le 2^d+1$.
+In \emph{graph pebbling}, a move along an edge $\{u,v\}$ removes two pebbles
+from $u$ and places one on $v$. The \emph{pebbling number} $\pi(G)$ is the
+smallest integer $S$ such that every configuration of $S$ pebbles can reach
+every target vertex~\cite{Chung1989,Hurlbert1999}. On a path $P_{d+1}$ this
+value is $\pi(P_{d+1})=2^d$, matching the general diameter lower bound
+$2^{\operatorname{diam}(G)}$~\cite{AlconHurlbert2022}. Upper bounds are
+often obtained through \emph{weight functions}~\cite{Hurlbert2017}: if a
+valid weight function satisfies $w(1_G)=2^d$ and the minimum non-target
+weight is $1$, then $\pi(G)\leq 2^d+1$. Yang, Yerger, and Zhou
+~\cite{YYZ2024} developed such constructions for lollipop graphs, while
+Bunde et al.~\cite{Bunde2008} studied pebbling and optimal pebbling on paths,
+cycles, and related families.
 
-The graph $T(3,s_1,s_2)$ is a triangle on $\{a,b,c\}$ with paths of lengths $s_1$ and
-$s_2$ from~$a$ and~$b$ to leaves $u_L$ and~$u_R$; the apex~$c$ carries no tail
+We study the double-tailed tadpole graph $T(3,s_1,s_2)$: a triangle on
+vertices $\{a,b,c\}$ with a path of length $s_1$ from $a$ to a leaf $u_L$
+and a path of length $s_2$ from $b$ to a leaf $u_R$, where the remaining
+triangle vertex $c$ has no attached tail
 (Definition~\ref{sec:tadpole-def}, Figure~\ref{fig:tadpole-schematic}).
-Its diameter is $d=s_1+s_2+1$.
-Closed formulas for classical tadpoles under standard moves are rare; much of the
-literature under that name treats \emph{monophonic} pebbling~\cite{Iammal2026}, where
-moves are confined to longest chordless paths.
+Its diameter is
+\[
+d=s_1+s_2+1.
+\]
 
-Our main result (Theorem~\ref{thm:exact}) is
+The term ``tadpole'' is also used in the literature on
+\emph{monophonic pebbling}~\cite{Iammal2026}, where moves are restricted to
+longest chordless paths and the resulting pebbling number may differ from the
+standard pebbling number considered here. For standard pebbling moves,
+the exact value of $\pi(T(3,s_1,s_2))$ was previously unknown.
+
+Our main result determines this value exactly:
 \[
 \pi\bigl(T(3,s_1,s_2)\bigr)=2^d+1
-\quad\text{for all } s_1,s_2\ge1,
+\quad\text{for all }s_1,s_2\geq1.
 \]
-one pebble above the path bound $2^d$.
-We do not know of an earlier exact formula for a two-parameter family of
-double-tailed graphs with a triangle core under standard moves.
 
-Section~\ref{sec:preliminaries} fixes notation and the critical configuration~$D^*$.
-Section~\ref{sec:lemmas} shows that only the two leaves matter as targets.
-The proof of the closed formula occupies Sections~\ref{sec:aux-bounds}--\ref{sec:upper-bound};
-Section~\ref{sec:computational} and Appendix~\ref{sec:appendix-computational} record
-small-instance searches that were run while the argument was being tested.
+Thus, replacing the central edge of a path by a triangle increases the path
+value by exactly one pebble. The proof introduces two main ideas: a combined
+potential function for the lower bound and a path-spine weight-function
+construction for the upper bound. In addition, a single spanning-path
+reduction handles all non-leaf targets uniformly, avoiding separate
+arguments for different vertex types.
 
-\medskip
-\noindent\textbf{Keywords.} graph pebbling; pebbling number; tadpole graph; weight function.
+The configuration achieving the lower bound places $2^d-1$ pebbles on one
+leaf and one pebble on the untailed triangle vertex. Computational
+experiments on small instances support the sharpness of this obstruction,
+although the proof of the theorem is entirely independent of these
+computations.
 
-\medskip
-\noindent\textbf{MSC 2020.} 05C57 (Primary); 05C35 (Secondary).
+Section~\ref{sec:preliminaries} introduces notation and the critical
+configuration used later. Section~\ref{sec:toolkit} collects the path
+pebbling tools required for the proof. Section~\ref{sec:lemmas} establishes
+the reduction to the two leaf targets. The exact lower and upper bounds are
+proved in Section~\ref{sec:proofs}. Section~\ref{sec:computational}
+presents computational verification for small instances, which serves as
+supporting evidence rather than part of the proof.

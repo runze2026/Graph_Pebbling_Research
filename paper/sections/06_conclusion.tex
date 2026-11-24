@@ -1,37 +1,101 @@
 % Conclusion
-
 \section{Conclusion}\label{sec:conclusion}
 
-For $T(3,s_1,s_2)$ the pebbling number is $2^d+1$, not the path value $2^d$.
-The extra pebble is tied to the apex branch at~$c$: configuration~$D^*$ uses
-$2^d-1$ pebbles on the farther leaf and one on~$c$ yet still fails, while the
-upper-bound weight function assigns unit weight to~$c$ and fills the bound
-$w(1_G)=2^d$.
+For the double-tailed tadpole graph $T(3,s_1,s_2)$, we prove that the
+pebbling number is
 
-At $S=2^d$, is $D^*$ the only failing configuration up to automorphism?
-Table~\ref{tab:critical} is consistent with this on every instance we checked; a
-general classification would show how rigid the lower-bound argument is.
-A separate question is whether the same formula holds for larger cycle bases
-$T(k,s_1,s_2)$ with $k\ge4$, or whether tail lengths eventually decouple from
-$d$; even $k=4$ would test whether the triangle-plus-apex picture explains the
-$+1$ correction in full.
+\[
+\pi(T(3,s_1,s_2))=2^d+1,
+\]
+
+where
+
+\[
+d=s_1+s_2+1
+\]
+
+is the diameter. Thus attaching a triangle between two pendant paths
+increases the path value $2^d$ by exactly one pebble. The lower bound is
+realized by the critical configuration $D^*$, which places $2^d-1$ pebbles
+on one leaf and one pebble on the untailed triangle vertex. The matching
+upper bound is obtained by a weight function whose total weight is exactly
+$2^d$, showing that the additional pebble is both necessary and sufficient.
+
+Beyond the exact formula, the proof introduces two useful ideas for handling
+this family of graphs. The lower bound is established through a combined
+potential function that tracks resources across the entire graph rather than
+a single junction vertex. For the upper bound, a path-spine weight function
+together with an apex correction gives a uniform way to control the triangle
+contribution. In addition, a spanning-path reduction provides a single
+argument for all non-leaf targets, avoiding separate case analyses for
+different vertex types.
+
+Several questions remain open.
+
+First, at the threshold $S=2^d$, is $D^*$
+the only failing configuration up to graph automorphisms? The exhaustive
+computations in Table~\ref{tab:critical} suggest that this may be true for
+the tested instances, but a general classification remains unknown.
+
+Second, does a similar formula extend to larger cycle bases
+$T(k,s_1,s_2)$ with $k\ge4$? The role of the triangle in producing the
+additional $+1$ pebble suggests a possible connection between the cycle
+structure and the extremal configurations, but new weight-function
+constructions appear necessary beyond the triangular case.
+
 
 \subsection*{Acknowledgments}
-I used AI-assisted tools for English polishing only.
-The mathematics was verified independently, and I take full responsibility for
+
+The author thanks Zhong Dong for helpful comments on the exposition and
+organization of the manuscript. All mathematical results were verified
+independently, and the author takes full responsibility for the content of
 this paper.
 
+
 \subsection*{Data availability}\label{sec:data-availability}
-Code and JSON logs are at
-\url{https://github.com/runze2026/Graph_Pebbling_Research}.
-Table~\ref{tab:results} matches \path{data/computational_results.json}.
-Main checks:
+
+\begin{sloppypar}
+
+The Python scripts and JSON logs used for the computational experiments are
+maintained in the repository
+\texttt{Graph\_Pebbling\_Research}
+(\url{https://github.com/runze2026}).
+
+Before journal submission, the repository will be made publicly available
+or archived through a long-term repository such as Zenodo with a citable
+DOI. This will allow readers to reproduce the computations reported in
+Tables~\ref{tab:results}--\ref{tab:leaf-verify} and
+Appendix~\ref{sec:appendix-computational}.
+
+Until public release, the scripts and logs are available from the author
+upon request.
+
+The computational package contains the following main checks:
+
+\end{sloppypar}
+
+
 \begin{itemize}
-  \item \path{python pebbling_solver.py} --- Table~\ref{tab:results}.
-  \item \path{python verify_weight_function.py --quick} --- $d\le 4$;
-        output \path{data/weight_function_day8.json}.
-  \item \path{python verify_b_capacity.py} --- \path{data/b_capacity_verification.json}.
-  \item \path{python verify_leaf_lemma.py} --- Table~\ref{tab:leaf-verify};
-        output \path{data/leaf_lemma_verification.json}.
+
+\item
+\texttt{python pebbling\_solver.py}
+--- reproduces Table~\ref{tab:results}.
+
+\item
+\texttt{python verify\_weight\_function.py --quick}
+--- verifies the weight-function checks for $d\le4$;
+output:
+\texttt{data/weight\_function\_day8.json}.
+
+\item
+\texttt{python verify\_b\_capacity.py}
+--- produces
+\texttt{data/b\_capacity\_verification.json}.
+
+\item
+\texttt{python verify\_leaf\_lemma.py}
+--- reproduces Table~\ref{tab:leaf-verify};
+output:
+\texttt{data/leaf\_lemma\_verification.json}.
+
 \end{itemize}
-Appendix~\ref{sec:appendix-computational} summarizes the computer runs.

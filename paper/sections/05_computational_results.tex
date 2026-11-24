@@ -2,77 +2,190 @@
 
 \section{Computational Results}\label{sec:computational}
 
+The computations in this section provide an independent validation of the
+main formula and illustrate the structure of the extremal configurations.
+In particular, we verify that the predicted value
+\[
+\pi(T(3,s_1,s_2))=2^d+1
+\]
+holds for several small instances, and that the observed failing
+configurations at size $2^d$ coincide with the critical configuration $D^*$
+used in the lower-bound proof.
+
 Nothing in this section is used in the proofs of Section~\ref{sec:proofs}.
-The searches below were run while the closed formula was being checked on small
-instances; scripts and logs are described in Section~\ref{sec:data-availability}.
+We exhaustively solved four instances with
+$d\in\{3,4,5\}$ (Table~\ref{tab:results});
+$T(3,2,3)$ with $d=6$ was not completed.
+The exhaustive search data and computational logs are available in
+\path{data/computational_results.json} and the accompanying scripts described
+in Section~\ref{sec:data-availability}.
 
-\subsection{Methodology}
 
-For each $G=T(3,s_1,s_2)$ we built an exhaustive solver (\texttt{pebbling\_solver.py})
-with two cuts: leaf-target pruning (Lemma~\ref{lem:leaf}) and quotienting by
+\subsection{Method}
+
+
+For each $G=T(3,s_1,s_2)$ we built an exhaustive solver
+(\texttt{pebbling\_solver.py}) with two reductions:
+leaf-target pruning (justified in general by Corollary~\ref{cor:pruning},
+and confirmed directly for these four instances by
+Table~\ref{tab:leaf-verify}, which lists every vertex) and quotienting by
 $\operatorname{Aut}(G)$.
-Starting from a diameter-based lower bound on~$S$, the program lists $S$-pebble
-multisets, tests reachability by breadth-first search on the pebbling state graph,
-and returns the least~$S$ for which every leaf target is reachable from every
-configuration.
+
+The solver uses the \emph{pebbling state graph}, whose vertices are pebble
+configurations and whose directed edges represent legal pebbling moves between
+configurations. Reachability of a target vertex is then determined by a
+breadth-first search on this state graph.
+
+Starting from a diameter-based lower bound on $S$, the program enumerates
+$S$-pebble multisets and returns the least value of $S$ for which every leaf
+target is reachable from every configuration.
+
+A \emph{worst failing configuration} is an unsolvable configuration at the
+largest tested threshold below the pebbling number; in the tables below this
+means a configuration with exactly $S=2^d$ pebbles that fails to reach the
+specified target.
+
 
 \subsection{Verified instances}
 
-Table~\ref{tab:results} lists completed runs.
+
+Table~\ref{tab:results} summarizes all completed runs.
+
 
 \begin{table}[ht]
 \centering
-\caption{Exact pebbling numbers and worst failing configurations (target~$u_R$).
-Vertex order: $0=a$, $1=b$, $2=c$, left tail, then right tail.}
+\caption{Exact pebbling numbers and worst failing configurations
+(target $u_R$). Vertex order: $0=a$, $1=b$, $2=c$, left tail,
+then right tail.}
 \label{tab:results}
+
 \begin{tabular}{lrrrrl}
 \hline
-Graph & $d$ & $|V|$ & $\pi(G)$ & $2^d{+}1$ & Worst config at $S=2^d$ \\
+Graph & $d$ & $|V|$ & $\pi(G)$ & $2^d+1$ & Worst config at $S=2^d$ \\
 \hline
-$T(3,1,1)$ & 3 & 5 & 9  & 9  & $(a,b,c,u_L,u_R)=(0,0,1,7,0)$ \\
-$T(3,1,2)$ & 4 & 6 & 17 & 17 & $(a,b,c,u_L,z_1,u_R)=(0,0,1,15,0,0)$ \\
-$T(3,2,2)$ & 5 & 7 & 33 & 33 & $(a,b,c,w_1,u_L,z_1,u_R)=(0,0,1,0,31,0,0)$ \\
-$T(3,1,3)$ & 5 & 7 & 33 & 33 & $(a,b,c,u_L,z_1,z_2,u_R)=(0,0,1,31,0,0,0)$ \\
+
+$T(3,1,1)$
+&3&5&9&9&
+$(a,b,c,u_L,u_R)=(0,0,1,7,0)$ \\
+
+$T(3,1,2)$
+&4&6&17&17&
+$(a,b,c,u_L,z_1,u_R)=(0,0,1,15,0,0)$ \\
+
+$T(3,2,2)$
+&5&7&33&33&
+$(a,b,c,w_1,u_L,z_1,u_R)=(0,0,1,0,31,0,0)$ \\
+
+$T(3,1,3)$
+&5&7&33&33&
+$(a,b,c,u_L,z_1,z_2,u_R)=(0,0,1,31,0,0,0)$ \\
+
 \hline
 \end{tabular}
 \end{table}
 
-Both $T(3,2,2)$ and $T(3,1,3)$ have $d=5$ but different shape; in each case
-$\pi(G)=33=2^5+1$.
-Every worst configuration at $S=2^d$ matches~$D^*$ up to automorphism.
+
+Both $T(3,2,2)$ and $T(3,1,3)$ have $d=5$ but different structures;
+in each case
+
+\[
+\pi(G)=33=2^5+1 .
+\]
+
+Every worst failing configuration at $S=2^d$ agrees with $D^*$ up to
+automorphism.
+
 
 \subsection{Critical configurations at \texorpdfstring{$S=2^d$}{S=2 to the d}}
 
-Table~\ref{tab:critical} gives one failing configuration at $S=2^d$ per instance
-(target~$u_R$).
+
+Table~\ref{tab:critical} records one failing configuration for each instance
+at the threshold $S=2^d$ with target $u_R$.
+
 
 \begin{table}[ht]
 \centering
 \caption{Configurations witnessing $\pi(G)>2^d$.}
 \label{tab:critical}
+
 \begin{tabular}{lrrll}
 \hline
-Graph & $d$ & $S$ fails & Target $u_R$ & Config tuple \\
+Graph & $d$ & $S$ fails & Target $u_R$ & Config tuple\\
 \hline
-$T(3,1,1)$ & 3 & 8  & $u_R=4$ & $(0,0,1,7,0)$ \\
-$T(3,1,2)$ & 4 & 16 & $u_R=5$ & $(0,0,1,15,0,0)$ \\
-$T(3,2,2)$ & 5 & 32 & $u_R=6$ & $(0,0,1,0,31,0,0)$ \\
-$T(3,1,3)$ & 5 & 32 & $u_R=6$ & $(0,0,1,31,0,0,0)$ \\
+
+$T(3,1,1)$
+&3&8&$u_R=4$&(0,0,1,7,0)\\
+
+$T(3,1,2)$
+&4&16&$u_R=5$&(0,0,1,15,0,0)\\
+
+$T(3,2,2)$
+&5&32&$u_R=6$&(0,0,1,0,31,0,0)\\
+
+$T(3,1,3)$
+&5&32&$u_R=6$&(0,0,1,31,0,0,0)\\
+
 \hline
 \end{tabular}
 \end{table}
 
-\subsection{Runtime}
 
-The longest finished run is $T(3,1,3)$, with $\pi(G)=33$ at $S=33$.
-At $S=32$ the solver examined $2{,}760{,}681$ isomorphism-reduced configurations
-(\path{data/computational_results.json}).
-We did not finish $T(3,2,3)$ ($d=6$): at $S=64$ there are about
-$1.3\times 10^9$ raw placements of $64$ pebbles on seven vertices.
 
-\subsection{Weight-function checks}\label{sec:wf-computational}
+\subsection{Computational performance}
 
-For $d\le 4$, every configuration with $w(p)>w(1_G)=2^d$ was checked and found
-solvable for each of six leaf-target pairs.
-At $d=5$ we verified only that $w(1_G)=2^5=32$.
-Appendix~\ref{sec:appendix-computational} records the runs.
+
+The longest completed run is $T(3,1,3)$, with
+
+\[
+\pi(G)=33
+\]
+
+at $S=33$.
+
+At $S=32$, the solver examined
+
+\[
+2,760,681
+\]
+
+isomorphism-reduced configurations.
+
+The exhaustive search output is available in
+\path{data/computational_results.json}.
+
+The instance $T(3,2,3)$ with $d=6$ was not completed:
+at $S=64$ there are approximately
+
+\[
+1.3\times10^9
+\]
+
+raw placements of $64$ pebbles on seven vertices.
+
+
+\subsection{Computational validation of the weight function}
+\label{sec:wf-computational}
+
+
+For $d\le4$, every configuration satisfying
+
+\[
+w(p)>w(1_G)=2^d
+\]
+
+was checked and found solvable for each of the six leaf-target pairs.
+
+For $d=5$, we verified only the normalization identity
+
+\[
+w(1_G)=2^5=32 .
+\]
+
+The detailed computational records are provided in
+Appendix~\ref{sec:appendix-computational}.
+
+
+The computations above provide evidence for the structure of the extremal
+configurations and motivate the general proof developed in the following
+section. The next section establishes the exact formula analytically through
+the matching lower and upper bounds.

@@ -1,0 +1,261 @@
+% Path pebbling toolkit: shared lemmas used throughout the paper
+
+
+\subsection{Path pebbling toolkit}
+\label{sec:toolkit}
+
+
+Every bound in this paper --- lower and upper, leaf and non-leaf --- is built
+from facts about pebbling on paths. We collect them here so that later
+sections can cite them freely.
+
+The potential-function framework introduced first will be used to establish
+the lower bound by constructing a quantity that cannot increase under
+pebbling moves. The weight-function framework will then provide the upper
+bound through valid weight assignments. Finally, the two-armed path bound will
+allow us to treat non-leaf targets uniformly in the structural lemmas.
+
+
+\subsubsection{Potential-function framework}
+
+
+\begin{lemma}[Path potential bound]
+\label{lem:path-lb}
+
+Let $P=(v_0,v_1,\ldots,v_k)$ be a path and let $t=v_k$.
+Define
+
+\[
+\Psi(p)=\sum_{i=0}^{k}p(v_i)2^{-(k-i)}.
+\]
+
+Then $\Psi(p)$ is non-increasing under every pebbling move on $P$.
+
+In particular, if
+
+\[
+p(v_0)=2^k-1
+\]
+
+and
+
+\[
+p(v_i)=0\quad(i>0),
+\]
+
+then $t$ cannot be pebbled.
+
+\end{lemma}
+
+
+\begin{proof}
+
+A move $v_i\to v_{i+1}$ satisfies
+
+\[
+\Delta\Psi
+=
+-2\cdot2^{-(k-i)}
++
+2^{-(k-i-1)}
+=0 .
+\]
+
+A move $v_{i+1}\to v_i$ satisfies
+
+\[
+\Delta\Psi
+=
+-2\cdot2^{-(k-i-1)}
++
+2^{-(k-i)}
+<0 .
+\]
+
+Hence $\Psi$ never increases.
+
+For the critical configuration,
+
+\[
+\Psi(p)
+=
+(2^k-1)2^{-k}
+<1 .
+\]
+
+A pebble on $t$ contributes exactly
+
+\[
+2^0=1
+\]
+
+to the potential, so $t$ cannot be reached.
+
+\end{proof}
+
+
+
+\subsubsection{Weight-function framework}
+
+
+We use the weight-function framework of
+Hurlbert~\cite{Hurlbert2017},
+Cranston et al.~\cite{Cranston2017},
+and Yang--Yerger--Zhou~\cite{YYZ2024}.
+
+
+Fix a target $r$.
+
+A weight function is
+
+\[
+w:V(G)\rightarrow\mathbb R_{\ge0}
+\]
+
+with
+
+\[
+w(r)=0
+\]
+
+and
+
+\[
+w(v)>0\quad(v\neq r).
+\]
+
+
+It is valid if every unsolvable configuration satisfies
+
+\[
+w(p)\le w(1_G).
+\]
+
+
+\begin{lemma}[Weight-function bound
+{\cite[Lemma~1]{YYZ2024}}]
+\label{lem:wf-bound}
+
+If $w$ is valid and
+
+\[
+m=\min_{v\neq r}w(v),
+\]
+
+then
+
+\[
+\pi(G,r)
+\le
+\left\lfloor\frac{w(1_G)}m\right\rfloor+1 .
+\]
+
+\end{lemma}
+
+
+
+\begin{lemma}[Path weights
+{\cite[Lemma~2]{YYZ2024}}]
+\label{lem:yyz-path}
+
+Let
+
+\[
+P=(v_0,\ldots,v_{k-1},r)
+\]
+
+be a path with
+
+\[
+w(v_i)=2^i .
+\]
+
+Then
+
+\[
+p\text{ is }r\text{-solvable on }P
+\Longleftrightarrow
+w(p)\ge2^k .
+\]
+
+\end{lemma}
+
+
+
+\begin{lemma}[Two-armed path bound]
+\label{lem:two-arm}
+
+Let
+
+\[
+Y=(y_0,y_1,\ldots,y_D)
+\]
+
+be a path and fix
+
+\[
+j\in\{0,\ldots,D\}.
+\]
+
+Then
+
+\[
+\pi(Y,y_j)\le2^j+2^{D-j}-1 .
+\]
+
+\end{lemma}
+
+
+\begin{proof}
+
+Split $Y$ into the two paths
+
+\[
+Y_L=(y_0,\ldots,y_j),
+\]
+
+and
+
+\[
+Y_R=(y_j,\ldots,y_D).
+\]
+
+The two path weight functions give
+
+\[
+w_L(p)\le2^j-1
+\]
+
+and
+
+\[
+w_R(p)\le2^{D-j}-1
+\]
+
+for every unsolvable configuration.
+
+Therefore,
+
+\[
+|p|
+\le
+w_L(p)+w_R(p)
+\]
+
+and hence
+
+\[
+|p|
+\le
+2^j+2^{D-j}-2 .
+\]
+
+Thus every configuration with
+
+\[
+2^j+2^{D-j}-1
+\]
+
+pebbles reaches $y_j$.
+
+\end{proof}

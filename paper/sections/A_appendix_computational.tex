@@ -1,32 +1,102 @@
 % Appendix: experimental validation
 
 \appendix
-\section{Computer runs}\label{sec:appendix-computational}
 
-\begin{proposition}[Computational confirmation of $b$-capacity]\label{prop:b-capacity-computational}
-For each verified instance in Table~\ref{tab:results}, the maximum value of
-$p(b)$ over all configurations reachable from~$D^*$ is strictly less than
-$2^{s_2}$.
-See \texttt{verify\_b\_capacity.py} and \texttt{data/b\_capacity\_verification.json}.
+\section{Computational verification}
+\label{sec:appendix-computational}
+
+
+This appendix records additional computational checks supporting the
+experimental results reported in Section~\ref{sec:computational}. These
+computations are not used in the proofs of the main theorem.
+
+
+\begin{proposition}[Computational verification of the $b$-capacity bound]
+\label{prop:b-capacity-computational}
+
+For each verified instance listed in Table~\ref{tab:results}, exhaustive
+search confirms that the maximum value of $p(b)$ over all configurations
+reachable from the critical configuration $D^*$ is strictly smaller than
+
+\[
+2^{s_2}.
+\]
+
+The corresponding verification data are available in
+\texttt{data/b\_capacity\_verification.json}.
+
 \end{proposition}
 
+
 \begin{proof}
-Direct breadth-first exploration of the pebbling state graph.
+
+The statement was verified by exhaustive breadth-first exploration of the
+pebbling state graph generated from $D^*$ using
+\texttt{verify\_b\_capacity.py}.
+
 \end{proof}
 
-\begin{proposition}[Computational confirmation of weight-function validity]\label{prop:wf-computational}
-For $T(3,1,1)$, $T(3,1,2)$, and $T(3,2,1)$ ($d\le 4$), the path-spine weight
-function of Section~\ref{sec:path-spine-wf} is valid for both leaf targets.
-For $T(3,2,2)$ and $T(3,1,3)$ ($d=5$), the normalization $w(1_G)=2^d$ holds and
-$\pi(G)=2^d+1$ matches Table~\ref{tab:results}; a full validity enumeration at
-$d=5$ was not completed.
-Per-target pebbling numbers in Table~\ref{tab:leaf-verify} appear in
-\path{data/leaf_lemma_verification.json}.
-See \texttt{data/weight\_function\_experiments.json} and
+
+
+\begin{proposition}[Computational verification of the weight-function bound]
+\label{prop:wf-computational}
+
+
+For the instances
+
+\[
+T(3,1,1),\quad T(3,1,2),\quad T(3,2,1),
+\]
+
+with $d\le4$, exhaustive computation verifies that the path-spine weight
+function described in Section~\ref{sec:path-spine-wf} satisfies the required
+solvability condition for both leaf targets.
+
+For the instances
+
+\[
+T(3,2,2),\quad T(3,1,3),
+\]
+
+with $d=5$, the normalization
+
+\[
+w(1_G)=2^d
+\]
+
+and the resulting pebbling numbers agree with the values reported in
+Table~\ref{tab:results}. A complete enumeration of weight-function validity
+for all configurations at $d=5$ was not completed.
+
+The detailed experimental records are available in
+
+\texttt{data/weight\_function\_experiments.json}
+
+and can be reproduced using
+
 \texttt{verify\_weight\_function.py}.
+
+Per-target pebbling data are recorded in
+
+\texttt{data/leaf\_lemma\_verification.json}.
+
 \end{proposition}
 
+
+
 \begin{proof}
-Exhaustive check via \texttt{verify\_weight\_function.py}:
-every configuration~$p$ with $w(p)>w(1_G)=2^d$ is $u_R$- (or $u_L$-)solvable.
+
+For the cases with $d\le4$, the verification consists of exhaustive testing
+of every configuration $p$ satisfying
+
+\[
+w(p)>w(1_G)=2^d .
+\]
+
+Every such configuration was found to be solvable for the corresponding leaf
+target.
+
+The $d=5$ computations provide additional experimental support but do not
+replace the analytical proof of the weight-function bound.
+
 \end{proof}

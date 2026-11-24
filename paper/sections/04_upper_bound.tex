@@ -1,147 +1,481 @@
 % Upper bound via path-spine + apex weight function
 
-\subsubsection{Weight functions and prior work}
 
-We work in the weight-function framework of Hurlbert~\cite{Hurlbert2017}, Cranston
-et al.~\cite{Cranston2017}, and Yang--Yerger--Zhou~\cite{YYZ2024}; their Lemmas~1
-and~2 match Section~1.2 of arXiv:2310.00580.
-Fix a target~$r$.
-A \emph{weight function} is $w\colon V(G)\to\mathbb{R}_{\ge0}$ with $w(r)=0$ and $w(v)>0$
-for $v\ne r$.
-It is \emph{valid} (rooted at~$r$) if every $r$-unsolvable configuration~$p$ satisfies
-$w(p)\le w(1_G)$, where $w(p)=\sum_v p(v)w(v)$ and $w(1_G)=\sum_v w(v)$.
+We now apply the toolkit developed in Section~\ref{sec:toolkit}.
+The main idea is to combine the weight function on a spanning path with
+a correction term at the triangle apex. The path contribution controls
+the transportation of pebbles along the two tails, while the additional
+apex weight accounts for the possible contribution of the vertex $c$.
 
-\begin{lemma}[Weight-function bound {\cite[ Lemma~1]{YYZ2024}}]\label{lem:wf-bound}
-If $w$ is valid on $G$ rooted at~$r$ and $m=\min_{v\ne r}w(v)$, then
+
+
+\subsubsection{Upper Bound Roadmap}
+
+
+The upper bound follows three steps.
+
+First, we construct a weight function consisting of a Hamiltonian
+path-spine weight together with a unit correction at the untethered
+triangle vertex $c$.
+
+Second, we prove that every configuration whose total weight exceeds
+$2^d$ can reach the target leaf. The proof separates two cases:
+either the path-spine already contains enough weight, or the additional
+weight stored at $c$ can be transferred back into the path.
+
+Finally, the weight-function bound gives the desired upper bound for
+the leaf targets, while Lemma~\ref{lem:offleaf} handles all remaining
+vertices.
+
+
+
+\subsubsection{The Path-Spine Weight Function}
+\label{sec:path-spine-wf}
+
+
+Fix
+
 \[
-\pi(G,r)\le\left\lfloor\frac{w(1_G)}{m}\right\rfloor+1.
+G=T(3,s_1,s_2),\qquad d=s_1+s_2+1 .
 \]
-In particular, if $m=1$ and $w(1_G)=2^d$, then $\pi(G,r)\le 2^d+1$.
-\end{lemma}
 
-\begin{lemma}[Path weights {\cite[ Lemma~2]{YYZ2024}}]\label{lem:yyz-path}
-Let $P=(v_0,v_1,\ldots,v_{k-1},r)$ be a path with $w(r)=0$ and $w(v_i)=2^i$.
-For every configuration~$p$ on~$P$,
-\[
-\text{$p$ is $r$-solvable on $P$}\quad\Longleftrightarrow\quad w(p)\ge 2^k.
-\]
-\end{lemma}
+and take the target vertex $r=u_R$.
 
-\subsubsection{The path-spine weight function}\label{sec:path-spine-wf}
-
-Fix $G=T(3,s_1,s_2)$, $d=s_1+s_2+1$, and target $r=u_R$.
 Let
+
 \[
 P=(u_L,w_1,\ldots,w_{s_1-1},a,b,z_1,\ldots,z_{s_2-1},u_R)
 \]
-be the Hamiltonian path of length~$d$ (so $|V(P)|=d+1$).
-Define $w_P$ by
+
+be the Hamiltonian path of length $d$ obtained by traversing the two
+tails through the edge $ab$.
+
+
+Define the path-spine weight function $w_P$ by
+
 \[
-w_P(u_R)=0,\qquad w_P(v)=2^i\ \text{when $v$ is the $(i+1)$-st vertex of $P$ starting from $u_L$},
-\]
-and $w_P(c)=0$.
-Set $w_c(c)=1$ and $w_c(v)=0$ for $v\ne c$, and define
-\[
-w=w_P+w_c.
-\]
-
-\begin{lemma}[Normalization]\label{lem:w-normalization}
-For $w$ as above, $w(1_G)=2^d$ and $\min_{v\ne u_R}w(v)=1$.
-\end{lemma}
-
-\begin{proof}
-The path contributes $1+2+\cdots+2^{d-1}=2^d-1$, and $w_c(c)=1$.
-\end{proof}
-
-\subsubsection{Validity}\label{sec:apex-feed}
-
-Set $Q=2^d$.
-For a configuration~$p$ on~$G$, let $w_P(p)$ and $w_c(p)=p(c)$ denote the path and
-apex contributions.
-
-\begin{lemma}[Path case]\label{lem:path-case}
-If $w_P(p)\ge Q$, then $p$ is $u_R$-solvable on~$G$.
-\end{lemma}
-
-\begin{proof}
-Apply Lemma~\ref{lem:yyz-path} on the path subgraph~$P$.
-Every pebbling move on~$P$ is also legal on~$G$.
-\end{proof}
-
-\begin{lemma}[Apex feeding]\label{lem:apex-feed}
-Suppose $w_P(p)<Q$ but $w(p)>Q$.
-Then $p$ is $u_R$-solvable on~$G$.
-\end{lemma}
-
-\begin{proof}
-Since $w(p)=w_P(p)+p(c)>Q$ and $w_P(p)\le Q-1$, we have $p(c)\ge 2$.
-Let $\delta=Q-w_P(p)\ge 1$.
-
-Vertex~$c$ is adjacent only to $a$ and~$b$, both on~$P$.
-A \emph{feeding move} is $c\to a$ or $c\to b$; it is legal exactly when $p(c)\ge 2$.
-Each feeding move removes two pebbles from~$c$ and adds one to a spine vertex of~$P$,
-so $w_P$ increases by $2^{s_1}$ if the move is $c\to a$ and by $2^{s_1+1}$ if it is
-$c\to b$; in either case $\Delta w_P\ge 2^{s_1}$.
-
-Perform feeding moves repeatedly, in any order, while the current configuration
-has at least two pebbles on~$c$.
-This defines a legal pebbling sequence: at step~$j$, before the $j$-th feeding move
-the configuration has $p_j(c)\ge 2$, so the move is permitted, and afterward
-$p_j(c)$ decreases by exactly~$2$.
-After $k=\lfloor p(c)/2\rfloor$ such moves we reach a configuration~$p'$ with
-$p'(c)\in\{0,1\}$ and
-\[
-w_P(p')\ge w_P(p)+k\cdot 2^{s_1}.
+w_P(u_R)=0,
 \]
 
-Because $p(c)\ge \delta+1$ with $\delta=Q-w_P(p)\ge1$, a direct check shows
-$w_P(p')\ge w_P(p)+\lfloor p(c)/2\rfloor\cdot 2^{s_1}\ge Q$.
-Lemma~\ref{lem:path-case} applies to~$p'$, so $p'$ is $u_R$-solvable; hence so is~$p$.
-\end{proof}
+and
 
-\begin{lemma}[Validity of $w$]\label{lem:wf-valid}
-The weight function $w$ from Section~\ref{sec:path-spine-wf} is valid on
-$T(3,s_1,s_2)$ rooted at~$u_R$.
+\[
+w_P(v)=2^i
+\]
+
+whenever $v$ is the $(i+1)$-st vertex of $P$ counted from $u_L$.
+
+The remaining triangle vertex $c$ receives no path weight:
+
+\[
+w_P(c)=0 .
+\]
+
+
+Define
+
+\[
+w_c(c)=1,\qquad w_c(v)=0\quad(v\neq c),
+\]
+
+and finally set
+
+\[
+w=w_P+w_c .
+\]
+
+
+\begin{lemma}[Normalization]
+\label{lem:w-normalization}
+
+For the above weight function,
+
+\[
+w(1_G)=2^d
+\]
+
+and
+
+\[
+\min_{v\neq u_R}w(v)=1 .
+\]
+
 \end{lemma}
 
+
 \begin{proof}
-Let $p$ be $u_R$-unsolvable.
-If $w_P(p)\ge Q$, Lemma~\ref{lem:path-case} gives a contradiction.
-If $w_P(p)<Q$ but $w(p)>Q$, Lemma~\ref{lem:apex-feed} gives a contradiction.
-Therefore $w(p)\le Q=w(1_G)$.
+
+The Hamiltonian path contributes
+
+\[
+1+2+\cdots+2^{d-1}=2^d-1,
+\]
+
+and the apex correction contributes one additional unit at $c$.
+
+Therefore,
+
+\[
+w(1_G)=2^d .
+\]
+
+Every non-target vertex receives weight at least one, hence
+
+\[
+\min_{v\neq u_R}w(v)=1 .
+\]
+
 \end{proof}
 
-\subsubsection{Main upper-bound and exact formula}
 
-\begin{theorem}[Upper bound]\label{thm:upper-bound}
-For all $s_1,s_2\ge 1$ with $d=s_1+s_2+1$,
+
+
+\subsubsection{Validity}
+
+
+Let
+
 \[
-\pi(T(3,s_1,s_2))\le 2^d+1.
+Q=2^d .
 \]
+
+For a configuration $p$, write
+
+\[
+w(p)=w_P(p)+w_c(p),
+\]
+
+where
+
+\[
+w_c(p)=p(c).
+\]
+
+
+
+\begin{lemma}[Path case]
+\label{lem:path-case}
+
+If
+
+\[
+w_P(p)\ge Q,
+\]
+
+then $p$ can pebble $u_R$.
+
+\end{lemma}
+
+
+\begin{proof}
+
+The restriction of $p$ to the Hamiltonian path $P$ has the same
+weight function as the path construction from the toolkit
+(Lemma~\ref{lem:yyz-path}).
+
+Hence the path weight bound implies that a pebbling sequence inside
+$P$ reaches $u_R$.
+
+Because $P$ is a spanning subgraph of $G$, the same sequence is legal
+in $G$.
+
+\end{proof}
+
+
+
+
+\begin{lemma}[Apex feeding]
+\label{lem:apex-feed}
+
+Suppose
+
+\[
+w_P(p)<Q
+\]
+
+but
+
+\[
+w(p)>Q .
+\]
+
+Then $p$ can pebble $u_R$.
+
+\end{lemma}
+
+
+
+\begin{proof}
+
+Since
+
+\[
+w(p)=w_P(p)+p(c)>Q
+\]
+
+and
+
+\[
+w_P(p)\le Q-1,
+\]
+
+we obtain
+
+\[
+p(c)\ge2 .
+\]
+
+
+Let
+
+\[
+\delta=Q-w_P(p)\ge1 .
+\]
+
+
+The vertex $c$ is adjacent only to $a$ and $b$.
+
+A pebbling move
+
+\[
+c\rightarrow a
+\]
+
+increases the path weight by
+
+\[
+2^{s_1},
+\]
+
+while
+
+\[
+c\rightarrow b
+\]
+
+increases it by
+
+\[
+2^{s_1+1}.
+\]
+
+
+Thus every feeding move increases $w_P$ by at least
+
+\[
+2^{s_1}.
+\]
+
+
+Continue performing feeding moves while possible. After
+
+\[
+k=\left\lfloor\frac{p(c)}2\right\rfloor
+\]
+
+moves we obtain a configuration $p'$ satisfying
+
+\[
+w_P(p')
+\ge
+w_P(p)+k2^{s_1}.
+\]
+
+
+Because
+
+\[
+p(c)\ge\delta+1,
+\]
+
+we have
+
+\[
+k\ge
+\left\lfloor\frac{\delta+1}{2}\right\rfloor .
+\]
+
+
+Therefore,
+
+\[
+w_P(p')
+\ge
+(Q-\delta)
++
+\left\lfloor\frac{\delta+1}{2}\right\rfloor2^{s_1}.
+\]
+
+
+Since $s_1\ge1$,
+
+\[
+2^{s_1}\ge2,
+\]
+
+and
+
+\[
+2\left\lfloor\frac{\delta+1}{2}\right\rfloor\ge\delta ,
+\]
+
+we obtain
+
+\[
+w_P(p')\ge Q .
+\]
+
+
+Lemma~\ref{lem:path-case} applies, so $p'$ and therefore $p$
+can pebble $u_R$.
+
+\end{proof}
+
+
+
+
+
+\begin{lemma}[Validity of $w$]
+\label{lem:wf-valid}
+
+The weight function $w$ is valid for
+$T(3,s_1,s_2)$ rooted at $u_R$.
+
+\end{lemma}
+
+
+
+\begin{proof}
+
+Let $p$ be a configuration that cannot pebble $u_R$.
+
+If
+
+\[
+w_P(p)\ge Q,
+\]
+
+then Lemma~\ref{lem:path-case} gives a contradiction.
+
+If
+
+\[
+w_P(p)<Q
+\]
+
+but
+
+\[
+w(p)>Q,
+\]
+
+then Lemma~\ref{lem:apex-feed} gives a contradiction.
+
+Therefore every unsolvable configuration satisfies
+
+\[
+w(p)\le Q=w(1_G).
+\]
+
+Hence $w$ is valid.
+
+\end{proof}
+
+
+
+
+\subsubsection{Main Upper-Bound Theorem}
+
+
+\begin{theorem}[Upper bound]
+\label{thm:upper-bound}
+
+For all $s_1,s_2\ge1$ with
+$d=s_1+s_2+1$,
+
+\[
+\pi(T(3,s_1,s_2))\le2^d+1 .
+\]
+
 \end{theorem}
 
+
+
 \begin{proof}
+
 By Lemmas~\ref{lem:wf-valid} and~\ref{lem:w-normalization},
-Lemma~\ref{lem:wf-bound} gives $\pi(G,u_R)\le 2^d+1$.
-By symmetry (reflect the graph, swapping the left and right tails), the same
-construction with target~$u_L$ gives $\pi(G,u_L)\le 2^d+1$.
-Lemma~\ref{lem:leaf} then yields $\pi(G)\le 2^d+1$.
+the weight-function lemma gives
+
+\[
+\pi(G,u_R)\le2^d+1 .
+\]
+
+
+By symmetry, exchanging the two tails gives
+
+\[
+\pi(G,u_L)\le2^d+1 .
+\]
+
+
+For every remaining vertex,
+Lemma~\ref{lem:offleaf} gives
+
+\[
+\pi(G,t)\le2^d+1 .
+\]
+
+
+Therefore,
+
+\[
+\pi(G)\le2^d+1 .
+\]
+
 \end{proof}
 
-\begin{theorem}[Exact pebbling number]\label{thm:exact}\label{thm:main}
-For all $s_1,s_2\ge 1$ with $d=s_1+s_2+1$,
+
+
+
+\subsection{Exact Pebbling Number}
+
+
+
+\begin{theorem}[Exact pebbling number]
+\label{thm:exact}
+
+For all $s_1,s_2\ge1$,
+
 \[
-\pi(T(3,s_1,s_2))=2^d+1=2^{\operatorname{diam}(T(3,s_1,s_2))}+1.
+\pi(T(3,s_1,s_2))
+=
+2^{\operatorname{diam}(T(3,s_1,s_2))}+1 .
 \]
+
 \end{theorem}
 
-\begin{proof}
-Theorem~\ref{thm:lower-bound} gives $\pi(T(3,s_1,s_2))\ge 2^d+1$, and
-Theorem~\ref{thm:upper-bound} gives $\pi(T(3,s_1,s_2))\le 2^d+1$.
-The lower and upper bounds coincide, hence
-$\pi(T(3,s_1,s_2))=2^d+1$.
-Since $d=\operatorname{diam}(T(3,s_1,s_2))$ within this family, the formula depends on
-$d$ alone.
-\end{proof}
 
-Configuration~$D^*$ has $w(D^*)=2^d$ at $S=2^d$, so the weight bound is tight.
+
+\begin{proof}
+
+The lower bound follows from
+Theorem~\ref{thm:lower-bound}.
+
+The upper bound follows from
+Theorem~\ref{thm:upper-bound}.
+
+Therefore,
+
+\[
+\pi(T(3,s_1,s_2))=2^d+1 .
+\]
+
+Since
+
+\[
+d=\operatorname{diam}(T(3,s_1,s_2)),
+\]
+
+the formula depends only on the diameter.
+
+\end{proof}
