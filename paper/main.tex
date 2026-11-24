@@ -17,109 +17,226 @@
 \newtheorem{remark}[theorem]{Remark}
 
 \title{Exact Pebbling Numbers of Double-Tailed Tadpole Graphs}
+
 \author{Runze Yu}
+
 \date{}
+
 
 \begin{document}
 
 \maketitle
 
+
 \begin{abstract}
+
 A path on $d+1$ vertices has pebbling number $2^d$.
-Attach a unit-weight branch at the triangle apex of a double-tailed tadpole, and the
-number rises by exactly one pebble.
-We prove $\pi(T(3,s_1,s_2))=2^{s_1+s_2+1}+1$ for all $s_1,s_2\ge1$, where
-$T(3,s_1,s_2)$ is a triangle with pendant paths of lengths $s_1,s_2$ to the
-leaves $u_L$ and~$u_R$.
-The lower bound is witnessed by placing $2^d-1$ pebbles on the farther leaf and one
-on the apex; the upper bound uses a path-spine weight function with that same apex
-branch.
-Small instances agree with the formula under exhaustive search.
+We show that attaching a triangle along an interior edge changes this value
+by exactly one pebble:
+for the double-tailed tadpole graph $T(3,s_1,s_2)$, consisting of a triangle
+with pendant paths of lengths $s_1$ and $s_2$ ending at leaves $u_L$ and
+$u_R$, we prove
+
+\[
+\pi(T(3,s_1,s_2))=2^d+1
+\]
+
+for all $s_1,s_2\ge1$, where $d=s_1+s_2+1$ is the diameter.
+
+The lower bound is obtained from a critical configuration placing
+$2^d-1$ pebbles on one leaf and one pebble on the untailed triangle vertex.
+The proof uses a combined potential function that is non-increasing under
+every pebbling move. The matching upper bound follows from a path-spine
+weight-function construction together with a uniform spanning-path reduction
+for all non-leaf targets. We also verify the formula computationally on
+small instances with $d\le5$.
+
 \end{abstract}
 
+
+\medskip
+
+
+\noindent
+\textbf{Keywords.}
+graph pebbling; pebbling number; tadpole graph; weight function.
+
+
+\medskip
+
+
+\noindent
+\textbf{MSC 2020.}
+05C57 (Primary); 05C35 (Secondary).
+
+
+
 \input{sections/00_introduction}
+
+
 \input{sections/01_preliminaries}
 
-\section{Structural lemmas}\label{sec:lemmas}
+
+\input{sections/01b_toolkit}
+
+
+
+\section{Structural Lemma: Bounding Non-Leaf Targets}
+\label{sec:lemmas}
+
 \input{sections/02_leaf_lemma}
+
+
+
 
 \input{sections/05_computational_results}
 
-\section{Proofs}\label{sec:proofs}
 
-\subsection{Auxiliary pebbling bounds}\label{sec:aux-bounds}
-\input{sections/03_lower_bound_path}
+
+\section{Proof of the Main Theorem}
+\label{sec:proofs}
+
+
+
+\subsection{Lower Bound}
+\label{sec:lower-bound}
+
+
 \input{sections/03_lower_bound_strengthened}
 
-\subsection{Lower bound}\label{sec:lower-bound}
+
 \input{sections/03_lower_bound}
 
-\subsection{Upper bound}\label{sec:upper-bound}
+
+
+\subsection{Upper Bound}
+\label{sec:upper-bound}
+
+
 \input{sections/04_upper_bound}
+
+
 
 \input{sections/06_conclusion}
 
+
+
 \input{sections/A_appendix_computational}
 
+
+
 \bibliographystyle{plain}
+
+
 \begin{thebibliography}{99}
+
+
 
 \bibitem{Chung1989}
 F.~R.~K. Chung,
 Pebbling in hypercubes,
-\emph{SIAM J. Discrete Math.} \textbf{2} (1989), 467--472.
+\emph{SIAM J. Discrete Math.}
+\textbf{2} (1989), 467--472.
 \url{https://doi.org/10.1137/0402041}
+
+
 
 \bibitem{Hurlbert1999}
 G.~Hurlbert,
 A survey of graph pebbling,
-\emph{Congr. Numer.} \textbf{139} (1999), 139--146.
+\emph{Congr. Numer.}
+\textbf{139} (1999), 41--64.
+
+
 
 \bibitem{HurlbertKenter2021}
 G.~Hurlbert and F.~Kenter,
 Graph pebbling: A blend of graph theory, number theory, and optimization,
-\emph{Notices Amer. Math. Soc.} \textbf{68} (2021), 192--199.
+\emph{Notices Amer. Math. Soc.}
+\textbf{68} (2021), 1900--1913.
+
+
 
 \bibitem{HurlbertSeddiq2024}
 G.~Hurlbert and E.~Seddiq,
 On the target pebbling conjecture,
-in \emph{Research Trends in Graph Theory and Applications},
-Springer Proc. Math. Stat., vol.~436, Springer, 2024, pp.~277--288.
+in \emph{Combinatorics, Graph Theory and Computing} (SEICCGTC 2021),
+Springer Proc. Math. Stat.,
+vol.~448,
+Springer,
+2024,
+pp.~163--176.
+
+
 
 \bibitem{AlconHurlbert2022}
 L.~Alc\'on and G.~Hurlbert,
 Pebbling in powers of paths,
-\emph{Discrete Math.} \textbf{346} (2023), Article~113256.
-\url{https://arxiv.org/abs/2112.09753}
+\emph{Discrete Math.}
+\textbf{346} (2023),
+Article~113315.
+
+
 
 \bibitem{Bunde2008}
-D.~P.~Bunde, E.~W.~Chambers, D.~W.~Cranston, K.~G.~Milans, and D.~B.~West,
+D.~P.~Bunde,
+E.~W.~Chambers,
+D.~Cranston,
+K.~Milans,
+and D.~B.~West,
 Pebbling and optimal pebbling in graphs,
-\emph{J. Graph Theory} \textbf{57} (2008), 215--238.
-\url{https://doi.org/10.1002/jgt.20278}
+\emph{J. Graph Theory}
+\textbf{57} (2008),
+215--238.
+
+
 
 \bibitem{Hurlbert2017}
 G.~Hurlbert,
 The weight function lemma for graph pebbling,
-\emph{J. Combinatorial Optimization} \textbf{34} (2017), 343--361.
+\emph{J. Combinatorial Optimization}
+\textbf{34} (2017),
+343--361.
+
+
 
 \bibitem{Cranston2017}
-D.~W. Cranston, L.~Postle, C.~Xue, and C.~Yerger,
+D.~W.~Cranston,
+L.~Postle,
+C.~Xue,
+and C.~Yerger,
 Modified linear programming and class~0 bounds for graph pebbling,
-\emph{J. Combinatorial Optimization} \textbf{34} (2017), 114--132.
+\emph{J. Combinatorial Optimization}
+\textbf{34} (2017),
+114--132.
+
+
 
 \bibitem{YYZ2024}
-M.~Yang, C.~Yerger, and R.~Zhou,
+M.~Yang,
+C.~Yerger,
+and R.~Zhou,
 Lollipop and cubic weight functions for graph pebbling,
-\emph{J. Combinatorial Optimization} \textbf{49} (2025), Article~16.
-\url{https://doi.org/10.1007/s10878-024-01248-1}
+\emph{J. Combinatorial Optimization}
+\textbf{49} (2025),
+Article~16.
+
+
 
 \bibitem{Iammal2026}
-S.~Kither Iammal, I.~Dhivviyanandam, and A.~Lourdusamy,
-On monophonic pebbling number,
-\emph{J. Combinatorial Math. Combinatorial Comput.} \textbf{130} (2026), 301--323.
-\url{https://doi.org/10.61091/jcmcc130-19}
+A.~Lourdusamy,
+S.~Kither Iammal,
+and I.~Dhivviyanandam,
+Monophonic cover pebbling number (MCPN) of network graphs,
+\emph{Utilitas Mathematica}
+\textbf{121} (2024),
+11--24.
+\url{https://doi.org/10.61091/um121-02}
+
+
 
 \end{thebibliography}
+
+
 
 \end{document}
